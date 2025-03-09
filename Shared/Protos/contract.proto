@@ -1,0 +1,46 @@
+syntax = "proto3";
+option csharp_namespace = "MapReduce";
+package distributed;
+
+service MasterService {
+  rpc RegisterWorker(WorkerRegistrationRequest) returns (WorkerRegistrationReply);
+  rpc SubmitJob(JobSubmissionRequest) returns (JobSubmissionReply);
+}
+
+message WorkerRegistrationRequest {
+  string workerId = 1;
+  WorkerType workerType = 2;
+  string address = 3;
+}
+
+message WorkerRegistrationReply {
+  string status = 1;
+}
+
+message JobSubmissionRequest {
+  bytes mapFunction = 1;
+  bytes reduceFunction = 2;
+  string filePath = 3;
+}
+
+message JobSubmissionReply {
+  string result = 1;
+}
+
+service WorkerService {
+  rpc ExecuteTask(TaskRequest) returns (TaskRequestReply);
+}
+
+message TaskRequest {
+  string contextData = 1; 
+  bytes functionData = 2;
+}
+
+message TaskRequestReply {
+  string resultData = 1;
+}
+
+enum WorkerType{
+	Map = 0;
+	Reduce = 1;
+}
