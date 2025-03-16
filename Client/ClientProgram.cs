@@ -10,7 +10,7 @@ namespace Client
     class Program
     {
         static int MasterPort = 50010;
-        static string FilePath = "C:\\Users\\V\\Desktop\\MapReduce\\sample.txt";
+        static string? FilePath;
 
         static void Main(string[] args)
         {
@@ -18,6 +18,17 @@ namespace Client
             {
                 MasterPort = int.Parse(args[0]);
                 FilePath = args[1];
+            }
+
+            DirectoryInfo dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+            while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, ".vs"))
+                          && !File.Exists(Path.Combine(dir.FullName, "*.sln")))
+            {
+                dir = dir.Parent;
+            }
+            if (dir != null)
+            {
+                FilePath = Path.Combine(dir.FullName, "sample.txt");
             }
 
             Console.WriteLine("Нажмите любую клавишу для начала...");

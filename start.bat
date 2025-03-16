@@ -44,5 +44,5 @@ timeout /t 1 /nobreak > nul
 
 rem CLIENT
 echo Starting Client...
-start "Worker Server" ".\Client\bin\Debug\net9.0\Client.exe" 50010 C:\\Users\\V\\Desktop\\MapReduce\\sample.txt
+start "Worker Server" ".\Client\bin\Debug\net9.0\Client.exe" 50010 .\sample.txt
 timeout /t 1 /nobreak > nul
